@@ -2,26 +2,32 @@
 #include <stdlib.h>
 
 int main(){
-	int size; 
-	printf("Enter arrat size: "); 
+	int size = 0;
+	
+	printf("Enter array size: "); 
 	scanf("%d", &size);
 
-	int *ptr = malloc(size * sizeof(int));
-		
-	if(ptr == NULL){
-		printf("Invalid code!\n");
-		exit(EXIT_FAILURE);; 
+	int *ptr = (int*)malloc(size * sizeof(int));
+	
+	if(!ptr){
+		perror("Malloc error: ");
+		exit(EXIT_FAILURE);
 	}
 		
-	int sum = 0;
+	for(int i = 0; i < size; ++i){
+		printf("Enter %d index element: ", i);
+		scanf("%d", ptr + i);
+	}
+
+	int adder = 0;
 
 	for(int i = 0; i < size; ++i){
-		printf("Enter %d index element: ", i + 1);
-		scanf("%d", &ptr[i]);
-		sum += ptr[i];
+		adder += *(ptr + i);
 	}
-	printf("Array element sum = %d\n", sum);
+
+	printf("Array elements sum = %d\n", adder);
 
 	free(ptr);
+	ptr = NULL;
 	exit(EXIT_SUCCESS);
 }
